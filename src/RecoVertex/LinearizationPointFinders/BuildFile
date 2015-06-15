@@ -1,0 +1,8 @@
+<export>
+ <lib name=RecoVertexLinearizationPointFinders>
+ <use name=RecoVertex/VertexTools>
+ <use name=FWCore/Utilities>
+</export>
+
+<use name=RecoVertex/VertexTools>
+<use name=FWCore/Utilities>

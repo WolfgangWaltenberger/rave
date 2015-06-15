@@ -1,0 +1,16 @@
+/** 
+ * @defgroup Rave Rave
+ * @brief This documentation group contains the namespace and classes of the 
+ *        Rave library.
+ */
+
+/**
+ * @namespace rave
+ * @ingroup Rave
+ * @brief Contains all classes and types defined by Rave.
+ *
+ * All classes and types documented in the @ref Rave module are members
+ * of this namespace.
+ */
+
+/* vim: set filetype=cpp: */

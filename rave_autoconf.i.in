@@ -1,0 +1,46 @@
+// Python & Java convenience
+
+%{
+#include <sstream>
+%}
+
+%define STRINGHELPER(classname)
+%extend classname {
+    const char * toString() {
+        std::ostringstream os;
+        os << (*self);
+        return os.str().c_str();
+    }
+
+    std::string __str__() {
+        std::ostringstream os;
+        os << (*self);
+        return os.str();
+    }
+};
+%enddef // STRINGHELPER
+
+%include "rave.i"
+
+%pragma(java) jniclasscode = %{
+    static {
+        String libname = System.mapLibraryName( "@JAVALIBRARY@" );
+
+        try {
+            try {   
+                System.load ( "@prefix@/lib/jni/" + libname );
+                System.out.println( libname + " successfully loaded!" );
+            } catch(UnsatisfiedLinkError e) {
+                libname = "lib@JAVALIBRARY@.so";
+                System.load ( "@prefix@/lib/jni/" + libname );
+                System.out.println( libname + " successfully loaded!" );
+            }
+        } catch(SecurityException e) {
+            System.out.println( libname + " not loaded!" );
+            e.printStackTrace();
+        } catch(UnsatisfiedLinkError e) {
+            System.out.println( libname + " not loaded!" );
+            e.printStackTrace();
+        }
+    }
+%}

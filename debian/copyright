@@ -1,0 +1,21 @@
+This package was debianized by Wolfgang Waltenberger <waldi@teilchen.at> on
+Wed, 23 Aug 2006 09:58:53 +0200.
+
+It was downloaded from http://stop.itp.tuwien.ac.at:8080/websvn/websvn.php.
+
+Upstream Author: Wolfgang Waltenberger <waldi@teilchen.at>
+
+Copyright: (C) 2006, Wolfgang Waltenberger <waldi@teilchen.at> (GPL).
+
+License:
+
+(C) 2006, Wolfgang Waltenberger <waldi@teilchen.at> under the GPL, see 
+`/usr/share/common-licenses/GPL'.
+
+
+The Debian packaging is (C) 2006, Wolfgang Waltenberger <waldi@teilchen.at> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.

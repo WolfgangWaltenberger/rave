@@ -1,0 +1,2 @@
+LD_LIBRARY_PATH="`pkg-config --libs-only-L Rave | sed -e 's/^-L *//' | sed -e 's/ //g'`:$LD_LIBRARY_PATH"
+./ClusteringTest

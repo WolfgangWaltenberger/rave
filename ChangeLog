@@ -1,0 +1,9 @@
+0.5.1 Starting Fri 13 May 2011 09:28:02 AM CEST
++ zvres lcio.h build fix
++ BeamSpotSingleton turn the warning msg into an info msg
++ add skeleton code for vertex reconstructors
++ fix webpage
++ zvres jet axis!!
+- mvf-ini:() versus mvf-ini()
+- mvf seg fault
+

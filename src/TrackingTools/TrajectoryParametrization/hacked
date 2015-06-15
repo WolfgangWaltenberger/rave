@@ -1,0 +1,3 @@
+# PerigeeTrajectoryParameters: removed one ::type and ParameterVector operator
+# PerigeeTrajectoryError:      removed one ::type
+CurvilinearTrajectoryError:  removed one ::type

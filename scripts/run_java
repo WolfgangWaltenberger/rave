@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export JAVAROOT=/usr/lib/jvm/java-1.5.0-sun-1.5.0.10/
+
+$JAVAROOT/bin/javac Test.java ; $JAVAROOT/bin/java Test

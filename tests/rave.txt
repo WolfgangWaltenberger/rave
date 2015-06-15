@@ -1,0 +1,20 @@
+# a simple txt files that can be read in by the DataHarvester
+# this file contains one event with a 3-prong tau decay
+# ( tau -> pi pi pi )
+
+event: id = 23; run = 0; tag = "tau -> pi pi pi (1)";
+
+# monte carlo truth
+event:simvtx: id=SV72; x=0.0217458; y=-0.234136; z=7.93786.
+event:simtrack: id=ST259; pid=211; px=-0.0280256; py=-1.9789; pz=-0.00393942; q=1; vtxid=SV72; x=0.0252222; y=-0.000357202; z=7.93832.; rid=RT2.
+event:simtrack: id=ST287; pid=-211; px=0.056656; py=-0.968775; pz=-0.945639; q=-1; vtxid=SV72; x=0.00768499; y=0.000449434; z=8.16686.; rid=RT3.
+event:simtrack: id=ST288; pid=211; px=0.469486; py=-1.64711; pz=-0.572631; q=1; vtxid=SV72; x=-0.0414307; y=-0.0118092; z=8.01513.; rid=RT4.
+
+# rec tracks
+event:track: dxx=3.01334e-05; dxy=-4.62894e-07; dxz=2.94752e-07; dxpx=-1.44552e-05; dxpy=-2.79382e-05; dxpz=-1.48991e-07; dyy=7.72035e-09; dyz=-2.26655e-07; dypx=2.22511e-07; dypy=4.44956e-07; dypz=7.42883e-08; dzz=8.09406e-05; dzpx=-3.08493e-07; dzpy=-6.02448e-06; dzpz=-2.62363e-05; dpxpx=7.50223e-06; dpxpy=2.9004e-05; dpxpz=1.55695e-07; dpypy=0.000575118; dpypz=3.05946e-06; dpzpz=9.84841e-06; id=RT2; name=track; px=-0.0302496; py=-1.97263; pz=-0.00541374; q=1; vtxid=-1; x=0.032216; y=-0.000518666; z=7.94421.
+
+event:track: dxx=0.000162711; dxy=4.50188e-06; dxz=5.01872e-06; dxpx=-3.87991e-05; dxpy=1.47593e-05; dxpz=1.33986e-05; dyy=7.80982e-05; dyz=-7.96989e-05; dypx=-1.61584e-06; dypy=-1.71939e-05; dypz=1.95547e-05; dzz=8.19013e-05; dzpx=-6.41422e-07; dzpy=1.84783e-05; dzpz=-1.92293e-05; dpxpx=9.91624e-06; dpxpy=-1.03089e-05; dpxpz=-1.00847e-05; dpypy=8.78209e-05; dpypz=7.75557e-05; dpzpz=8.47884e-05; id=RT3; name=track; px=0.0567991; py=-0.982816; pz=-0.959868; q=-1; vtxid=-1; x=0.0117773; y=0.000656101; z=8.16868.
+
+event:track: dxx=4.76513e-05; dxy=1.20704e-05; dxz=4.4892e-06; dxpx=-1.53364e-05; dxpy=-1.13792e-05; dxpz=-3.96591e-06; dyy=9.07692e-06; dyz=-1.61914e-05; dypx=-3.78408e-06; dypy=-5.28399e-06; dypz=5.19062e-06; dzz=5.03078e-05; dzpx=-1.73482e-06; dzpy=5.84157e-06; dzpz=-1.82082e-05; dpxpx=1.26725e-05; dpxpy=-2.50138e-05; dpxpz=-8.52208e-06; dpypy=0.000110467; dpypz=3.53788e-05; dpzpz=1.95258e-05; id=RT4; name=track; px=0.474854; py=-1.66015; pz=-0.576685; q=1; vtxid=-1; x=-0.0460897; y=-0.0132784; z=8.01301.
+
+event:fill

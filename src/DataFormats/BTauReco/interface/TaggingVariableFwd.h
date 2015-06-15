@@ -1,0 +1,4 @@
+#ifndef DataFormats_BTauReco_TaggingVariableFwd_h
+#define DataFormats_BTauReco_TaggingVariableFwd_h
+
+#endif // DataFormats_BTauReco_TaggingVariableFwd_h

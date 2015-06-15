@@ -1,0 +1,3 @@
+removed VertexCompatibleWithBeam VertexDistance* NbSharedTracks (because they depend on reco::Vertex
+
+reintroduce NbSharedTracks, in a TransientVertex version

@@ -1,0 +1,31 @@
+<use name=boost>
+<use name=CLHEP>
+
+<export>
+ <lib name=TrackingToolsGsfTools>
+ <use name="FWCore/Framework">
+ <use name="FWCore/ParameterSet">
+ <use name="FWCore/Utilities">
+ <use name="DataFormats/GeometryCommonDetAlgo">
+ <use name="DataFormats/GeometrySurface">
+ <use name="TrackingTools/GeomPropagators">
+ <use name="TrackingTools/Records">
+ <use name="TrackingTools/TrajectoryState">
+ <use name="TrackingTools/PatternTools">
+ <use name="DataFormats/GsfTrackReco">
+</export>
+
+ <use name="FWCore/Framework">
+ <use name="FWCore/MessageLogger">
+ <use name="FWCore/ParameterSet">
+ <use name="FWCore/Utilities">
+ <use name="DataFormats/GeometryCommonDetAlgo">
+ <use name="Geometry/CommonDetUnit">
+ <use name="DataFormats/GeometrySurface">
+ <use name="TrackingTools/GeomPropagators">
+ <use name="TrackingTools/Records">
+ <use name="TrackingTools/TrajectoryParametrization">
+ <use name="TrackingTools/TrajectoryState">
+ <use name="TrackingTools/PatternTools">
+ <use name="DataFormats/GsfTrackReco">
+ <use name="DataFormats/TrackReco">

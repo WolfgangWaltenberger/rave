@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# export JAVAROOT=/usr/lib/jvm/java-1.5.0-sun-1.5.0.08/
+BOOSTEXTRA=""
+[ -n "$BOOST_ROOT" ] && BOOSTEXTRA="-I$BOOST_ROOT/include"
+
+mkdir -p at/hephy/Rave
+swig -package at.hephy.Rave -outdir at/hephy/Rave -I../src/RaveBase/RaveInterface/  -Wall -dirprot -makedefault -directors -v -c++ -java ../rave.i
+
+g++ -Wall -fpic -c ../rave_wrap.cxx $BOOSTEXTRA -I/usr/java/include -I../src/RaveBase/RaveInterface/ -I$JAVAROOT/include/ -I$JAVAROOT/include/linux/ -I.
+g++ -Wall -shared -fpic rave_wrap.o /usr/local/lib/libRave.so -o librave.so
+
+$JAVAROOT/bin/javac Test.java ; $JAVAROOT/bin/java Test

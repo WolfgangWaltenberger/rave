@@ -1,0 +1,63 @@
+This is Rave Version 0.6.22
+Fitting says: 
+[0;32m[rave::KinematicTreeFactory]  magnetic field at (0,0,0) is  (0,0,4) [;0m
+[;0m
+[0;32m[rave::KinematicTreeFactory]  magnetic field at (0,0,0) is  (0,0,4) [;0m
+[;0m
+[0;32m[rave::KinematicTreeFactory]  magnetic field at (0,0,0) is  (0,0,4) [;0m
+[;0m
+[0;32m[VertexFactory]  factory called w/o beamspot![;0m
+[0;36m[BasicKinematicTree BasicKinematicTree.cc:146] Assigning 2 particles to tree[;0m
+[0;36m[BasicKinematicTree BasicKinematicTree.cc:146] Assigning 2 particles to tree[;0m
+tree1 is Consistent
+tree2 is Consistent
+[0;36m[TransverseImpactPointExtrapolator TransverseImpactPointExtrapolator.cc:119] negligeable curvature: using a trick to extrapolate:
+parameters
+x =    0.00328786   0.00365365 -0.000985925
+p =       88.8408      44.7468      11.2626
+error
+  5.51877e-09 -1.97317e-07 -1.64593e-07  1.47167e-12  2.93879e-12
+ -1.97317e-07  1.00439e-05   8.2999e-06  4.79666e-11  3.15528e-10
+ -1.64593e-07   8.2999e-06  7.02335e-06  2.92312e-11 -5.47072e-10
+  1.47167e-12  4.79666e-11  2.92312e-11  2.85303e-06  1.02892e-06
+  2.93879e-12  3.15528e-10 -5.47072e-10  1.02892e-06  3.24109e-06
+[;0m
+[0;36m[TransverseImpactPointExtrapolator TransverseImpactPointExtrapolator.cc:119] negligeable curvature: using a trick to extrapolate:
+parameters
+x =   -0.00328786  -0.00365365  0.000985925
+p =      -88.8408     -44.7468     -11.2626
+error
+  5.51877e-09  1.97317e-07 -1.64593e-07  1.47168e-12 -2.93884e-12
+  1.97317e-07  1.00439e-05  -8.2999e-06 -4.79663e-11  3.15525e-10
+ -1.64593e-07  -8.2999e-06  7.02334e-06   2.9231e-11  5.47074e-10
+  1.47168e-12 -4.79663e-11   2.9231e-11  2.85303e-06 -1.02892e-06
+ -2.93884e-12  3.15525e-10  5.47074e-10 -1.02892e-06  3.24109e-06
+[;0m
+[0;36m[BasicKinematicTree BasicKinematicTree.cc:146] Assigning 2 particles to tree[;0m
+[0;32m[rave::KinematicTreeFactory]  magnetic field at (0,0,0) is  (0,0,4) [;0m
+[;0m
+[0;32m[KinematicTreeFactory] Using KinematicParticleFitter with 1 input tree(s)[;0m
+[LagrangeChildUpdator] updating tree
+[0;36m[BasicKinematicTree BasicKinematicTree.cc:146] Assigning 0 particles to tree[;0m
+The reconstructed mother particle 1 is (-0.003288, -0.003654, 0.000986 , -88.840836, -44.746788, -11.262589, 91.407745 )
+The reconstructed mother particle 2 is (0.003288, 0.003654, -0.000986 , 88.840820, 44.746788, 11.262590, 91.407753 )
+dauther 1 : (-0.003288, -0.003654, 0.000986 , -31.410303, 13.145998, 28.900597, 0.100000 )
+dauther 1 : (-0.003288, -0.003654, 0.000986 , -57.430531, -57.892784, -40.163185, 0.100000 )
+dauther 2 : (0.003288, 0.003654, -0.000986 , 31.410301, -13.146000, -28.900599, 0.100000 )
+dauther 2 : (0.003288, 0.003654, -0.000986 , 57.430523, 57.892788, 40.163189, 0.100000 )
+The reconstructed mother particle 12 is (-0.280034, -0.141046, -0.035501 , -0.004440, 0.002293, -0.006611, 271.125458 )
+dauther 12 : (-0.280034, -0.141046, -0.035501 , -88.843185, -44.745811, -11.266009, 91.408661 )
+dauther 12 : (-0.280034, -0.141046, -0.035501 , 88.838745, 44.748104, 11.259398, 91.407059 )
+finalStateParticles: (-0.003288, -0.003654, 0.000986 , -31.410303, 13.145998, 28.900597, 0.100000 )
+finalStateParticles: (-0.003288, -0.003654, 0.000986 , -57.430531, -57.892784, -40.163185, 0.100000 )
+finalStateParticles: (0.003288, 0.003654, -0.000986 , 31.410301, -13.146000, -28.900599, 0.100000 )
+finalStateParticles: (0.003288, 0.003654, -0.000986 , 57.430523, 57.892788, 40.163189, 0.100000 )
+Start refitting 
+The refitted mother particle 12 is (-0.281270, -0.141156, -0.035076 , -0.002532, 0.004745, -0.004925, 270.000000 )
+refited dauther 12 : (-0.280034, -0.141046, -0.035501 , -88.843185, -44.745811, -11.266009, 91.408661 )
+refited dauther 12 : (-0.280034, -0.141046, -0.035501 , 88.838745, 44.748104, 11.259398, 91.407059 )
+refitted finalStateParticles: (-0.003288, -0.003654, 0.000986 , -31.410303, 13.145998, 28.900597, 0.100000 )
+refitted finalStateParticles: (-0.003288, -0.003654, 0.000986 , -57.430531, -57.892784, -40.163185, 0.100000 )
+refitted finalStateParticles: (0.003288, 0.003654, -0.000986 , 31.410301, -13.146000, -28.900599, 0.100000 )
+refitted finalStateParticles: (0.003288, 0.003654, -0.000986 , 57.430523, 57.892788, 40.163189, 0.100000 )
+

@@ -1,0 +1,330 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.4//EN">
+<book>
+
+<bookinfo>
+  <title> RAVE User Guide </title>
+
+  <author>
+     <firstname>Wolfgang</firstname>
+     <surname>Waltenberger</surname>
+     <affiliation>
+       <address><email>walten@hephy.oeaw.ac.at</email></address>
+     </affiliation>
+  </author>
+
+  <author>
+     <firstname>Fabian</firstname>
+     <surname>Moser</surname>
+  </author>
+<!--  <copyright><year>2006</year><holder>Wolfgang Waltenberger</holder></copyright> -->
+
+  <abstract>
+  <para>
+        <mediaobject>
+            <imageobject role="ps">
+            <imagedata width=400pt align="center" format="eps" fileref="rave_logo.eps">
+            </imageobject>
+            <imageobject role="html">
+            <imagedata align="center" format="jpg" fileref="rave_logo.jpg">
+            </imageobject>
+        </mediaobject>
+  This document is the official User Guide for RAVE
+  (Reconstruction in an Abstract Vertices Environment).
+  This is version $Rev: 1455 $.
+  </para>
+  </abstract>
+</bookinfo>
+
+
+<preface><title>Foreword</title>
+<para>
+RAVE (Reconstruction in an Abstract Vertices Environment) has its roots in the
+CMS vertexing community. At the time of this writing, full source code
+compatibility has been maintained between RAVE and the CMS vertexing
+algorithms. This enables the community to use CMS vertexing algorithms in RAVE
+and vice versa, without any code change at all.
+
+RAVE is intended as a vertex reconstruction framework, easily embedabble in
+various software environments. The first target experiments are the ILC
+detectors.
+
+Blu bla fasel.
+</para>
+</preface>
+
+<chapter><title>Introduction</title>
+<para>
+  FIXME needs to be written.
+</para>
+</chapter>
+
+<chapter><title>How to use rave</title>
+ <para>
+ This chapter will go through the (simple) process of installing the software.
+ A sample use case is then given. Finally, an overview over the methods and how to
+ configure them is presented.
+ </para>
+ <sect1><title>Installation</title>
+ <para>
+ Rave uses the GNU autotools as its build environment.
+ The rave build environment creates a
+ <ulink url="http://pkgconfig.freedesktop.org/wiki/">pkg-config</ulink> ".pc" file.
+ All information about how to compile and link against Rave is
+ contained in this file.
+ Use: </para>
+ <para><command>pkg-config Rave --libs --cflags</command></para>
+ <para>
+ to find out about
+ all necessary compiler / linker flags.
+ Note that pkg-config uses the environment variable
+ <envar>PKG_CONFIG_PATH</envar>
+ to find pc files in non-standard directories.
+ </para>
+ <para>
+ Though we put some effort into keeping dependecies low, some are still to be 
+ listed here. To successfully build the library on your system you need the 
+ <ulink url="http://www.boost.org">boost</ulink> libraries
+ and a recent version of the 
+ <ulink url="http://proj-clhep.web.cern.ch/proj-clhep/">CLHEP</ulink> libraries installed. 
+
+ If they are located in some other path than /usr, one has to tell scons by using the 
+ <command>boostdir=/usr/local/foo</command> and 
+ <command>clhepdir=/usr/local/foo</command> command line parameters.
+ </para>
+
+ <para>
+ Use <command>configure --help</command> to obtained more detailed information about compile options.
+ </para>
+ </sect1>
+ <sect1><title>Usage</title>
+ <para>
+ This chapter shows how to use the rave library from within a C++ application.
+ </para>
+
+ <para>
+ Sample code:
+ <programlisting>
+ /* create factory with your own implementation of MagneticField,
+  * and Propagator. Default reconstruction method is "method",
+  * verbosity level is "verbosity".
+  */
+ <code>
+ #include &lt;rave/VertexFactory.h>
+
+ rave::VertexFactory factory ( MyMagneticField(), MyPropagator(), method, verbosity );
+ </code>
+
+ /* from "tracks" ( std::vector < rave::Track > ) create "vertices",
+  * using the method defined in the constructor of the factory.
+  */
+ <code>
+ std::vector < rave::Vertex > vertices = factory.create( tracks );
+ </code>
+
+ /** from "tracks" create "vertices", using the "mvf" method,
+   * setting sigmacut to 8.0 (and using default values for the other parameters)
+   */
+ <code>
+ std::vector < rave::Vertex > other_vertices = factory.create ( tracks, "mvf-sigmacut:8.0" );
+ </code>
+ </programlisting>
+ 
+ 
+    <figure id="fig.factory">
+        <title>rave::Factory is the central class for interaction with the user.</title>
+        <mediaobject>
+            <imageobject role="ps">
+            <imagedata width=400pt align="center" format="eps" fileref="factory.eps">
+            </imageobject>
+            <imageobject role="html">
+            <imagedata align="center" format="png" fileref="factory.png">
+            </imageobject>
+        </mediaobject>
+    </figure>
+ </para>
+ </sect1>
+
+ <sect1><title>Methods</title>
+ <para>
+ The method string used in rave::Factory has the following general structure:
+ </para>
+ <para>
+ <literal>
+ finder-name:value-name:value-...
+ </literal>
+ </para>
+ <para>
+ Sometimes nesting is required (e.g. to configure "sub-algorithms"):
+ </para>
+ <para>
+ <literal>
+ finder-name:value-name:(value-name:value-name:value)....
+ </literal>
+ </para>
+ <para>
+ As for the finders, the following algorithms are defined:
+  <variablelist>
+
+  
+    <varlistentry>
+    <term><literal> kalman </literal> </term>
+    <listitem><para>
+      <ooclass><classname> KalmanVertexFitter </classname></ooclass>
+      This is the simple linear kalman filter that takes no extra parameters.
+    </para></listitem>
+    </varlistentry>
+
+    
+    <varlistentry>
+    <term><literal> avf </literal> </term>
+    <listitem><para>
+      <ooclass><classname> AdaptiveVertexFitter  </classname></ooclass>
+      The <literal>avf</literal> respects the following parameters:
+      
+        <variablelist>
+        <varlistentry>
+        <term><literal> sigmacut </literal> </term>
+        <listitem><para>
+          The value for &sigma;
+          [ = sqrt (&chi;<superscript>2</superscript>) ]
+         <!-- ( = <mml:math> <mml:apply> <mml:sqrt> ( &chi;^2) </mml:sqrt></mml:apply> </mml:math> ) -->
+          at which a track has track weight=0.5.
+        </para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+        <term><literal> Tini </literal> </term>
+        <listitem><para>
+          Initial temperature in the annealing schedule.
+        </para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+        <term><literal> ratio </literal> </term>
+        <listitem><para>
+          The ratio with which the temperature falls in each iteration step.
+        </para></listitem>
+        </varlistentry>
+        
+        </variablelist>
+
+        Default is: <literal>avf-Tini:256-ratio:0.25-sigmacut:3</literal>
+        
+    </para></listitem>
+    </varlistentry>
+
+    <varlistentry>
+    <term><literal> tkf </literal> </term>
+    <listitem><para>
+      <ooclass><classname> TrimmedKalmanVertexFinder </classname></ooclass>
+      The <literal>tkf</literal> respects the following parameters:
+      
+        <variablelist>
+        <varlistentry>
+        <term><literal> ptcut </literal> </term>
+        <listitem><para>
+          Cut in the tracks' p<subscript>T</subscript>, given in GeV/c.
+        </para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+        <term><literal> vtxcut </literal> </term>
+        <listitem><para>
+          Bla FIXME
+        </para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+        <term><literal> trackcutpv </literal> </term>
+        <listitem><para>
+          Bla FIXME
+        </para></listitem>
+        </varlistentry>
+        
+        <varlistentry>
+        <term><literal> trackcutsv </literal> </term>
+        <listitem><para>
+          Bla FIXME
+        </para></listitem>
+        </varlistentry>
+        
+        
+        </variablelist>
+
+        Default is: <literal>tkf-ptcut:0-trkcutpv:0.05-trkcutsv:0.01-vtxcut:0.01</literal>
+        
+    </para></listitem>
+    </varlistentry>
+
+    
+  </variablelist>
+ 
+ </para>
+ </sect1>
+</chapter>
+
+<chapter><title>Algorithms</title>
+ <para>
+This chapter should be magically compatible with the CMSSW Vertexing
+documentation.
+ </para>
+</chapter>
+
+<chapter><title>Known bugs</title>
+ <para>
+<variablelist>
+  <varlistentry>
+  <term> </term>
+  <listitem><para>
+  The user-supplied propagator is currently ignored -
+  an internal vacuum propagator is used instead.
+  </para></listitem>
+  </varlistentry>
+  <varlistentry>
+  <term> </term>
+  <listitem><para>
+  The Java version of the magnetic field class doesnt work yet.
+  Currently we only have a constant magnetic field available for Java.
+  </para></listitem>
+  </varlistentry>
+</variablelist>
+ </para>
+</chapter>
+
+
+<chapter><title>Future plans</title>
+<para>
+<variablelist>
+  <varlistentry>
+  <term> </term>
+  <listitem><para>
+    Beam spot constraints, prior information, ghost tracks, vertex suppression
+    field, and other "extra information" needs to be respected in the
+    interfaces, without bloating the API.
+  </para></listitem>
+  </varlistentry>
+  <varlistentry>
+  <term> </term>
+  <listitem><para>
+    Zvres and a special-purpose MultiVertexSeeder for the application of b-tagging
+    are desirable future developments.
+  </para></listitem>
+  </varlistentry>
+  <varlistentry>
+  <term></term>
+  <listitem><para>
+    Gaussian sum filters will be introduced, allowing for non-Gaussian track models.
+    (Think e.g. modelling bremsstrahlung electrons here)
+  </para> </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+</chapter>
+
+<!--
+<example>...</example>
+<appendix>...</appendix>
+<index>...</index>
+-->
+
+</book>

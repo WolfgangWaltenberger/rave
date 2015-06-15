@@ -1,0 +1,10 @@
+#!/bin/sh
+
+PYPATH=/usr/include/python2.4/
+
+swig -Wall -dirprot -makedefault -directors -v -c++ -python rave.i
+
+# swig -package at.hephy -c++ -java rave.i
+
+g++ -Wall -fpic -c rave_wrap.cxx -I/usr/java/include -I$PYPATH -I.
+g++ -Wall -shared -fpic rave_wrap.o libRave.so -o _rave.so

@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+impldir=@includedir@/rave/impl
+swigdir=@includedir@/rave/swig
+
+Name: rave
+Description: Rave Libraries - Reconstruction in an Abstract Versatile Environment
+URL: http://projects.hepforge.org/rave/
+Version: @VERSION@
+Libs: -L${libdir} -lRaveBase -lRaveCore -lRaveVertex @FLAVORTAGGING_LIBS@ @KINEMATICS_LIBS@
+Cflags: -I${includedir} -I${impldir} -I${impldir}/ROOT/ -I${impldir}/ROOT/genvector/ -I${impldir}/ROOT/smatrix/ -I${impldir}/ROOT/mathcore/ -I${swigdir} -DRAVE @PLATFORMCPPFLAGS@ @FLAVORTAGGING_CPPFLAGS@ @KINEMATICS_CPPFLAGS@

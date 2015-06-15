@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+TO=`cat /afs/hephy.at/user/w/walten/.seconddir | sed -e 's/^cd //' | sed -e 's/\&\&.*//'`
+
+echo $TO
+
+for i in `ls -d **/.svn`; do j=`dirname $i` ; cp -a $i $TO/$j; done

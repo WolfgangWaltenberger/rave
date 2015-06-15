@@ -1,0 +1,10 @@
+<export>
+ <lib name=RecoVertexVertexPrimitives>
+ <use name=TrackingTools/TransientTrack>
+ <use name=DataFormats/VertexReco>
+ <use name=DataFormats/Math>
+</export>
+
+<use name=TrackingTools/TransientTrack>
+<use name=DataFormats/VertexReco>
+<use name=DataFormats/Math>

@@ -1,0 +1,6 @@
+# old:
+# TransientVertex:  remove addTracks code and ref to root (Rtypes.h)
+# ConvDertFromReco: remove
+
+# smatrix, new:
+TransientVertex: operator reco::Vertex() comment out track reference!

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#FIXME -- provide autogen.sh instead of bootstrap?
+
+set -x
+libtoolize --force --copy
+aclocal -I m4 -I m4/cedar
+autoheader 
+automake -a -c --gnu
+autoconf 
+

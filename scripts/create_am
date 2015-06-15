@@ -1,0 +1,23 @@
+#!/bin/sh
+
+cat << EOF
+ACLOCAL_AMFLAGS = -I m4
+
+# rules for pkg-config
+pkgconfigdir = \$(libdir)/pkgconfig
+pkgconfig_DATA = rave.pc
+
+\$(pkgconfig_DATA): config.status
+
+AM_CPPFLAGS = -I\$(top_srcdir) -DRAVE
+
+lib_LTLIBRARIES = libRave.la
+
+libRave_la_LIBADD = -lCLHEP
+EOF
+
+DIRS="CommonTools DataFormats Environment MagneticField RecoBTag RecoVertex TrackingTools FWCore Geometry RaveBase "
+
+echo "libRave_la_SOURCES = `for i in $DIRS; do ls $i/*/src/*.cc | sed -e 's/^/	/' | sed -e 's/$/ \\\\/'; done`"
+
+echo "pkginclude_HEADERS = `for i in $DIRS; do ls $i/*/interface/*.h| sed -e 's/^/	/' | sed -e 's/$/ \\\\/'; done`"

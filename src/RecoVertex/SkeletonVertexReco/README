@@ -1,0 +1,8 @@
+This is just the skeleton code, to make it easy for people to write a new vertex
+reconstructor. 
+See also 
+RecoVertex/ConfigurableVertexReco/*/ConfigurableSkeletonVertexReconstructor 
+								   
+and 
+
+RecoVertex/Makefile.am

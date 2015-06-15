@@ -1,0 +1,5 @@
+DIR=`pwd`
+# cd `dirname $0` # make sure pwd points to the directory name of this file
+export PKG_CONFIG_PATH=`pwd`/build:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH="`pwd`/build/Geometry:`pwd`/build/CommonTools:`pwd`/build/Environment:`pwd`/build/MagneticField:`pwd`/build/RecoVertex:`pwd`/build/FWCore:`pwd`/build/TrackingTools:`pwd`/build/RaveBase:`pwd`/build/Vertigo:`pwd`/build/CMSSkin:$LD_LIBRARY_PATH"
+cd $DIR
