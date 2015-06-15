@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+
+autom4te.cache/requests
+ltmain.sh
