@@ -11,6 +11,7 @@ class PropagatorSingleton
     void initialise();
     static PropagatorSingleton * Instance();
     void registry ( const Propagator & prop );
+    void release ();
     const Propagator * propagator() const;
 
   private:

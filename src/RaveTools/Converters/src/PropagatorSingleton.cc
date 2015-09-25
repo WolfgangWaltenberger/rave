@@ -19,12 +19,20 @@ void PropagatorSingleton::initialise()
   if (init)
   {
     NewProp=false;
+    release();
     thePropagator = new AnalyticalPropagator( MagneticFieldSingleton::Instance() );
     if (debug)
     {
       cout << "[PropagatorSingleton] default vacuum propagator registered at " << (void *) thePropagator << endl;
     }
   }
+}
+
+void PropagatorSingleton::release() {
+	if (thePropagator){
+		delete thePropagator;
+		thePropagator = NULL;
+	}
 }
 
 PropagatorSingleton::PropagatorSingleton( const PropagatorSingleton & o )

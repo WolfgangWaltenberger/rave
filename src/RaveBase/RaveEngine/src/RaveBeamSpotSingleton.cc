@@ -49,10 +49,10 @@ void BeamSpotSingleton::set ( const rave::Ellipsoid3D & ell )
   error(2,0)=ell.covariance().dxz();
   error(2,1)=ell.covariance().dyz();
   mySpot = new reco::BeamSpot ( p, sqrt ( czz ), 0., 0., 0. , error );
-  if ( true )
+  if ( false )
   {
-    // edm::LogInfo("BeamSpotSingleton::set") 
-    cout 
+    edm::LogInfo("BeamSpotSingleton::set") 
+    // cout 
       << " rxx[um]=" << 10000. * sqrt ( mySpot->rotatedCovariance3D()(0,0) )
       << " |rxy|[um]=" << 10000. * sqrt ( fabs ( mySpot->rotatedCovariance3D()(0,1) ) )
       << " ryy[um]=" << 10000. * sqrt ( mySpot->rotatedCovariance3D()(1,1) )

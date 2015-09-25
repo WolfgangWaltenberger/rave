@@ -77,17 +77,17 @@ RefCountedKinematicTree  LagrangeChildUpdator::update(RefCountedKinematicTree tr
 //now does nothing, supposed to
 //update the states of daughter
 //particles down the kinematic decay chain
- cout << "[LagrangeChildUpdator] updating tree" << endl;
+ //cout << "[LagrangeChildUpdator] updating tree" << endl;
  RefCountedKinematicTree nTree = tree;
  nTree->topParticle();
- cout << "top particle" << endl;
+ // cout << "top particle" << endl;
  print ( nTree );
  nTree->movePointerToTheFirstChild();
- cout << "first child" << endl;
+ //cout << "first child" << endl;
  print ( nTree );
  while ( nTree->movePointerToTheNextChild() )
  {
-   cout << "next child" << endl;
+   //cout << "next child" << endl;
    print ( nTree );
  }
  

@@ -24,6 +24,13 @@ GlobalVector MagneticFieldSingleton::inTesla ( const GlobalPoint & gp ) const
   return theField->inTesla ( gp );
 }
 
+void MagneticFieldSingleton::release() {
+	if (theField){
+		delete theField;
+		theField = NULL;
+	}
+}
+
 bool MagneticFieldSingleton::hasField() const
 {
   return ( theField != 0 );
@@ -48,12 +55,13 @@ const MagneticField * MagneticFieldSingleton::field() const
   return theField;
 }
 
-void MagneticFieldSingleton::registry ( const MagneticField * field )
+void MagneticFieldSingleton::registry ( MagneticField * field )
 {
   /*
   cout << "[MagneticFieldSingleton] registering field Bz="  << flush;
   cout << field->inTesla ( GlobalPoint ( 0.,0.,0. ) ).z() << flush;
   cout << " field=" << (void *) field << ", singleton=" << (void *) this << endl;
   */
-  theField = field;
+	release();
+	theField = field;
 }

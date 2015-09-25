@@ -56,7 +56,7 @@ double GsfVertexWeightCalculator::calculate(const  VertexState & oldVertex,
   double weight = pow(2. * M_PI, -0.5 * 5) * sqrt(1./sigmaDet) * exp(-0.5 * chi);
   // edm::LogError("GsfVertexWeightCalculator") << "w=" << weight << " chi=" << chi << " sigmaDet=" << sigmaDet;
 
-  if (isnan(weight) || sigmaDet<=0.) {
+  if (::isnan(weight) || sigmaDet<=0.) {
     edm::LogWarning("GsfVertexWeightCalculator") << "Weight is NaN";
     return 0.;
     // return -1.;

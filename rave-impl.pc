@@ -1,0 +1,13 @@
+prefix=/home/walten/install
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+impldir=${prefix}/include/rave/impl
+swigdir=${prefix}/include/rave/swig
+
+Name: rave
+Description: Rave Libraries - Reconstruction in an Abstract Versatile Environment
+URL: http://projects.hepforge.org/rave/
+Version: 0.6.25
+Libs: -L${libdir} -lRaveBase -lRaveCore -lRaveVertex -lRaveFlavorTag -lRaveVertexKinematics
+Cflags: -I${includedir} -I${impldir} -I${impldir}/ROOT/ -I${impldir}/ROOT/genvector/ -I${impldir}/ROOT/smatrix/ -I${impldir}/ROOT/mathcore/ -I${swigdir} -DRAVE -DRaveDllExport= -DWITH_FLAVORTAGGING -DWITH_KINEMATICS

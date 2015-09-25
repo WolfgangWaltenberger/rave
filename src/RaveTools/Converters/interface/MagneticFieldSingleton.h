@@ -10,7 +10,8 @@ class MagneticFieldSingleton : public MagneticField
   public:
     static MagneticFieldSingleton * Instance();
     GlobalVector inTesla ( const GlobalPoint & o ) const;
-    void registry ( const MagneticField * field );
+    void registry ( MagneticField * field );
+    void release ();
     bool hasField() const;
     const MagneticField * field() const;
   private:

@@ -1,1 +1,0 @@
-./configure CXXFLAGS="-g -O3 -march=native" --prefix=/home/walten/install --enable-kinematics --enable-java --disable-ttf --enable-tkvf --enable-developers --enable-gsf --enable-unittests $@  # --disable-mvf --disable-mva

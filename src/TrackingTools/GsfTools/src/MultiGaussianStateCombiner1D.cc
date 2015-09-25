@@ -1,10 +1,8 @@
 #include <iostream>
 #include "TrackingTools/GsfTools/interface/MultiGaussianStateCombiner1D.h"
-
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "FWCore/Utilities/interface/Exception.h"
-
 #include <cfloat>
-
 
 SingleGaussianState1D
 MultiGaussianStateCombiner1D::combine(const MultiGaussianState1D& theState) const
@@ -63,8 +61,8 @@ MultiGaussianStateCombiner1D::combine(const VSC& theComponents) const
 
   double measCovar;
   if (weightSum<DBL_MIN){
-    std::cout << "MultiGaussianStateCombiner1D:: New state has total weight of 0."
-	      << std::endl;
+    edm::LogInfo ( "GaussianStateCombiner1D" ) 
+        << "MultiGaussianStateCombiner1D:: New state has total weight of 0.";
 //     meanMean = SingleState::Vector(size,0);
     meanMean = 0.;
     measCovar = 0.;

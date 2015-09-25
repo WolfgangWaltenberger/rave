@@ -8,10 +8,10 @@
 #include "RaveBase/Converters/interface/RaveToCmsObjects.h"
 #include "RaveBase/Converters/interface/RaveStreamers.h"
 #include "RaveBase/RaveEngine/interface/RaveVertexReconstructor.h"
-#include "RaveBase/Converters/interface/MagneticFieldWrapper.h"
 #include "RaveTools/Converters/interface/MagneticFieldSingleton.h"
 #include "RaveTools/Converters/interface/PropagatorSingleton.h"
 #include "RaveBase/Converters/interface/PropagatorWrapper.h"
+#include "RaveBase/Converters/interface/MagneticFieldWrapper.h"
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include <iostream>
 #include <iomanip>
@@ -67,6 +67,7 @@ void VertexFactory::setup()
     // not a vacuum propagator, so we register in the singleton
     PropagatorWrapper w ( *theProp );
     PropagatorSingleton::Instance()->registry ( w );
+
   }
 
   BlockWipedPoolAllocated::usePool();
@@ -77,7 +78,9 @@ VertexFactory::~VertexFactory()
     // Should we let the OS do the cleaning? Itd be more efficient.
     // cout << "[VertexFactory] destor!" << endl;
     if ( theField ) delete theField;
+    MagneticFieldSingleton::Instance()->release();
     if ( theProp) delete theProp;
+    PropagatorSingleton::Instance()->release();
     if ( theRector ) delete theRector;
     for ( map < string, rave::VertexReconstructor * >::const_iterator i=theRectors.begin(); 
           i!=theRectors.end() ; ++i )
@@ -90,7 +93,7 @@ VertexFactory::~VertexFactory()
 
 void VertexFactory::setBeamSpot ( const rave::Ellipsoid3D & b )
 {
-  cout << "VertexFactory::setBeamSpot" << endl;
+  // cout << "VertexFactory::setBeamSpot" << endl;
   rave::BeamSpotSingleton::set ( b );
 }
 

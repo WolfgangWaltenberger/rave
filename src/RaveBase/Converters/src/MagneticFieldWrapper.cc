@@ -19,9 +19,14 @@ MagneticFieldWrapper::MagneticFieldWrapper( const MagneticFieldWrapper & o ) :
   theField ( o.theField->copy() )
 { }
 
-MagneticFieldWrapper::MagneticFieldWrapper ( const rave::MagneticField & r ) :
+MagneticFieldWrapper::MagneticFieldWrapper ( rave::MagneticField & r ) :
   theField ( r.copy() )
 {}
+
+MagneticFieldWrapper::MagneticFieldWrapper ( const rave::MagneticField & r ) :
+  theField ( r.copy() )
+{
+}
 
 MagneticFieldWrapper::~MagneticFieldWrapper()
 {
