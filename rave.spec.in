@@ -1,0 +1,96 @@
+%define  RELEASE      1
+%define  rel          %{?CUSTOM_RELEASE} %{!?CUSTOM_RELEASE:%RELEASE}
+%define  spec_version @VERSION@
+%define  dist_version @VERSION@
+
+Summary:        Reconstruction in an Abstract Versatile Environment
+Name:           @PACKAGE@
+License:        GPL
+Group:          Development/Libraries
+Version:        %{spec_version}
+Release:        %rel
+Packager:       Wolfgang Waltenberger
+Source:         http://rave.teilchen.at/%{name}-%{dist_version}.tar.gz
+URL:            http://rave.teilchen.at/
+Prefix:         %{_prefix}
+Requires:       clhep
+BuildPrereq:    clhep
+BuildPrereq:    swig >= 1.3.20
+BuildPrereq:    boost
+BuildPrereq:    pkgconfig
+BuildPrereq:    autoconf
+BuildPrereq:    automake
+BuildPrereq:    libtool
+Buildroot:      %{_tmppath}/%{name}-%{version}-root
+
+%description
+RAVE is a reconstruction library targeted at the high energy and nuclear
+physics communities.  Given a bundle of reconstructed tracks, and a magnetic
+field, it can reconstruct interaction vertices.  It deals with both the
+problem of vertex finding (pattern recognition) and vertex fitting
+(statistics). For vertex fitting it uses the powerful adaptive vertex
+estimator - a novel technique that was first introduced in this project.
+RAVE code is used for vertex reconstruction in the LHC experiment called CMS.
+It has also already been successfully tried in the ILC communities.
+
+Authors:
+--------
+    Wolfgang Waltenberger <waldi@teilchen.at>
+    Herbert Valerio Riedel <hvr@gnu.org>
+
+%package -n rave-devel
+Summary:         Reconstruction in an Abstract Versatile Environment - development package
+Group: Development/Libraries
+Requires: rave = %{version}-%{release}
+
+%package -n rave-java
+Summary:         Reconstruction in an Abstract Versatile Environment - java interface
+Group: Development/Libraries
+Requires: rave = %{version}-%{release}
+
+%description -n rave-devel
+Development files for rave
+
+%description -n rave-java
+Java interface to rave.
+
+%prep
+%setup -q -n %{name}-%{dist_version}
+
+%build
+export CXXFLAGS=-O2
+./bootstrap
+%configure
+%{__make}
+
+%install
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+%makeinstall
+
+# make DESTDIR=%{buildroot} install-strip 
+# [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf %{_infodir}/dir
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-, root, root)
+%doc AUTHORS COPYING INSTALL NEWS README
+%{_libdir}/*.so
+%{_libdir}/*.so.*
+
+%files -n rave-devel
+%defattr(-, root, root)
+%{_includedir}/rave
+%{_libdir}/*.a
+%{_libdir}/*.la
+%{_libdir}/pkgconfig/*.pc
+
+%files -n rave-java
+%defattr(-, root, root)
+%{_libdir}/jni/*
+%{_datadir}/java/*
+
+%changelog -n rave
+* Mon Apr 03 2007 Wolfgang Waltenberger <waldi@teilchen.at>
+- first spec file
