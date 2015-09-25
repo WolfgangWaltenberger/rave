@@ -1,0 +1,16 @@
+Rave is a toolkit that takes a set of reconstructed particle tracks as its
+input and produces reconstructed interaction vertices as its output. It deals
+both with finding (pattern recognition) and with fitting (statistical
+estimation) of the interaction vertices.  Its main design goals are ease of
+use, high integratability in existing software projects, extensibility, and
+generality.  To this end the API is defined in an as simple as possible way.
+The various algorithms, and optionally, their parameter settings, are
+referenced by a simple string. This guarantees that the user code decouples
+completely from the toolkit internals. Also, maintaining backwards
+compatibility should become a trivial task.  The Rave Toolkit is complemented
+by a simple standalone framework, called "Vertigo". Implementation,
+verification, and performance analysis of reconstruction algorithms should thus
+be possible in a very fast and straightforward manner.  Rave has its roots in
+the CMS vertex reconstruction community. The current algorithmic parts of the
+toolkit are source code compatible with the original CMS software, but
+contributions from "outside" are highly welcome. 

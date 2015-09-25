@@ -165,3 +165,14 @@ tests/kinematics03
 tests/memorytests
 tests/propagatortests
 tests/rave_version
+ar-lib
+autom4te.cache/
+compile
+config.guess
+config.h.in
+config.sub
+configure
+depcomp
+install-sh
+missing
+test-driver
