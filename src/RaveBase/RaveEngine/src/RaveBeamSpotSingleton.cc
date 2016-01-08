@@ -21,7 +21,7 @@ const reco::BeamSpot * BeamSpotSingleton::instance()
 
 void BeamSpotSingleton::set ( const rave::Ellipsoid3D & ell )
 {
-  cout << "here" << endl;
+  // cout << "here" << endl;
   myEllipsoid=ell;
   if ( mySpot ) delete mySpot;
   if ( !(ell.isValid()) )

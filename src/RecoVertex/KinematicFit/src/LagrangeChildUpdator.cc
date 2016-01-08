@@ -58,7 +58,7 @@ namespace {
     cout << "[LagrangeChildUpdator] refitting current prod vertex " << tree->currentProductionVertex()->position() << endl;
     vector < RefCountedKinematicParticle > daughters = tree->daughterParticles();
     pair < bool, RefCountedKinematicParticle > mother = tree->motherParticle();
-    cout <<  "here" << endl;
+    // cout <<  "here" << endl;
     KinematicParticleVertexFitter fitter;
     RefCountedKinematicTree ntree2 = fitter.fit ( daughters );
     ntree2->topParticle();
