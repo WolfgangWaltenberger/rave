@@ -1,6 +1,6 @@
 #include "Environment/Configuration/interface/MultiType.h"
-#include <cstdlib>
-#include <cmath>
+#include <stdlib.h>
+#include <math.h>
 #include <sstream>
 #include <iomanip>
 #include <limits>
@@ -167,7 +167,7 @@ MultiType::MultiType ( float data )
 {
   clear();
   theDouble=data; hasDouble=true;
-  theType = floatType();
+  theType = doubleType();
 }
 
 MultiType::MultiType()
@@ -187,9 +187,8 @@ MultiType::MultiType ( int data )
 {
   clear();
   theInt=data; hasInt = true;
-  theType=intType();
+  theType=longType();
 }
-
 
 MultiType::MultiType ( bool data )
 {
@@ -203,21 +202,29 @@ MultiType::Type MultiType::isType() const
   return theType;
 }
 
-bool 
-MultiType::hasValue() const
+bool MultiType::hasValue() const
 {
   return (hasDouble || hasInt || hasString || hasDoubleVec || hasIntVec);
 }
 
-void 
-MultiType::toDefault()
+void MultiType::hasNothing()
 {
-  // type info is left intact.
-  theDouble=0.;         hasDouble=false;
-  theInt=0;             hasInt=false;
-  theString="undef";    hasString=false;
-  theDoubleVec.clear(); hasDoubleVec=false;
-  theIntVec.clear();    hasIntVec=false;
+  hasDouble=false;
+  hasInt=false;
+  hasString=false;
+  hasDoubleVec=false;
+  hasIntVec=false;
+}
+
+void MultiType::toDefault()
+{
+  // type info is left ok.
+  theDouble=0.;
+  theInt=0;
+  theString="undef";
+  theDoubleVec.clear();
+  theIntVec.clear();
+  hasNothing();
 }
 
 string MultiType::isA() const
@@ -225,7 +232,7 @@ string MultiType::isA() const
   return typeName ( theType );
 }
 
-string MultiType::typeName( Type t ) const
+string MultiType::typeName( Type t )
 {
   switch ( t )
   {
@@ -234,17 +241,21 @@ string MultiType::typeName( Type t ) const
     case kBool:
       return "bool";
     case kInt32:
+      return "int32";
     case kInt64:
-      return "int";
+      return "int64";
     case kDouble32:
+      return "float";
     case kDouble64:
       return "double";
     case kDouble32Vec:
+      return "floatvec";
     case kDouble64Vec:
       return "doublevec";
     case kInt32Vec:
+      return "int32vec";
     case kInt64Vec:
-      return "intvec";
+      return "int64vec";
     case kNone:
     default:
       return "undef";
@@ -280,6 +291,11 @@ bool MultiType::operator!= ( const char * strg ) const
   return !(this->operator== (strg) );
 }
 
+float MultiType::asFloat() const
+{
+  return (float) asDouble();
+}
+
 double MultiType::asDouble() const
 {
   if ( !hasDouble )
@@ -294,6 +310,7 @@ double MultiType::asDouble() const
     };
     hasDouble = true;
   };
+  // return 1.e-12* ( int ( 1.e12 * theDouble ) );
   return theDouble;
 }
 
@@ -397,11 +414,19 @@ string MultiType::asString() const
     ostringstream ostr;
     if ( hasDouble )
     {
-      ostr << setprecision ( goodPrecision() );
-      ostr << theDouble;
-      if ( ostr.str().find(".")==string::npos )
+      if ( isnan ( theDouble ) )
       {
-        ostr << ".";
+        ostr << "nan";
+      } else if ( !isfinite ( theDouble ) )
+      {
+        ostr << theDouble;
+      } else {
+        ostr << setprecision ( goodPrecision() );
+        ostr << theDouble;
+        if ( ostr.str().find(".")==string::npos )
+        {
+          ostr << ".";
+        }
       }
     } else if ( hasInt ) {
       ostr << theInt;
@@ -411,6 +436,14 @@ string MultiType::asString() const
             i!=theDoubleVec.end() ; ++i )
       {
         if ( i != theDoubleVec.begin() ) ostr << ", ";
+        ostr << *i;
+      };
+    } else if ( hasIntVec ) {
+      // ostr << setprecision ( goodPrecision() );
+      for ( vector< long >::const_iterator i=theIntVec.begin(); 
+            i!=theIntVec.end() ; ++i )
+      {
+        if ( i != theIntVec.begin() ) ostr << ", ";
         ostr << *i;
       };
     } else {
@@ -440,6 +473,7 @@ int MultiType::goodPrecision() const
 
 void MultiType::trimType()
 {
+  if (!theTrimmable) return;
   if (theType!=kString) return;
   theType=stringIs();
   // cout << endl << " ->" << *this << "<- is a " << isA() << endl;
@@ -448,12 +482,13 @@ void MultiType::trimType()
 void MultiType::defineAs( MultiType::Type t )
 {
   theType=t;
+  theTrimmable=false;
 }
 
 MultiType::Type MultiType::stringIs() const
 {
   Type ret = longType();    // assumed default type
-  if ( theString == "nan" || theString == "NaN" )
+  if ( theString == "nan" || theString == "NaN" || theString == "NAN" || theString == "nan." )
   {
     ret = doubleType();
     theDouble=numeric_limits<double>::quiet_NaN();
@@ -582,6 +617,7 @@ MultiType::operator string() const
 
 void MultiType::clear()
 {
+  theTrimmable=true;
   // destroy type info
   theType=kNone;
 
@@ -656,8 +692,108 @@ MultiType & MultiType::operator= ( double o )
   return *this;
 }
 
-std::ostream & operator <<  ( ostream & s, dataharvester::MultiType & rt )
+MultiType MultiType::operator[] ( int n ) const
 {
-  s << (string) rt;
+  return getElement ( n );
+}
+
+MultiType MultiType::getElement ( int n ) const
+{
+  if ( hasDoubleVec )
+  {
+    return theDoubleVec[n];
+  }
+
+  if ( hasIntVec )
+  {
+    return theIntVec[n];
+  }
+
+  if ( n==0 ) return (*this);
+  throw std::string("MultiType has no elements!");
+}
+
+void MultiType::addToVector ( const MultiType & data )
+{
+  switch ( data.isType() )
+  {
+    case kDouble32:
+    case kDouble64:
+    {
+      addToVector ( data.asDouble() );
+      break;
+    }
+    case kInt32:
+    case kInt64:
+    {
+      addToVector ( data.asLong() );
+      break;
+    }
+    case kString:
+    {
+      if ( theType == kNone ) theType=kString;
+      // strings are simply appended!
+      if ( theType == kString )
+      {
+        theString=theString+", "+data.asString();
+        break;
+      } else {
+        cout << "[MultiType] strings can only be added to strings!" << endl;
+        break;
+      }
+      
+    }
+    default:
+    {
+      cout << "[MultiType] cannot add a " << data.isA()
+           << " (" << data.asString() << ") to a vector!"
+           << endl;
+    }
+  }
+}
+
+void MultiType::addToVector ( double data )
+{ 
+  if ( theType == kNone )
+  {
+    theType=kDouble32Vec; // We had an empty MultiType. good.
+    hasNothing();
+    hasDoubleVec=true;
+  }
+  if ( theType == kDouble64Vec || theType == kDouble32Vec )
+  {
+    // type is correct, so no problem!
+    theDoubleVec.push_back ( data );
+    return;
+  }
+
+  cout << "[MultiType::addToVector] Error: trying to add double to a "
+       << isA() << "-type MultiType. This is not supported. Discarding new data!"
+       << endl;
+}
+
+void MultiType::addToVector ( long data )
+{
+  if ( theType == kNone )
+  {
+    theType=kInt32Vec; // We had an empty MultiType. good.
+    hasNothing();
+    hasIntVec=true;
+  }
+  if ( theType == kInt64Vec || theType == kInt32Vec )
+  {
+    // type is correct, so no problem!
+    theIntVec.push_back ( data );
+    return;
+  }
+
+  cout << "[MultiType::addToVector] Error: trying to add long to a "
+       << isA() << "-type MultiType. This is not supported. Discarding new data!"
+       << endl;
+}
+
+ostream & operator <<  ( ostream & s, MultiType & t )
+{
+  s << t.asString();
   return s;
 }

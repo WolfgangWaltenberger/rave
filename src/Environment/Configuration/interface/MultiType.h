@@ -24,17 +24,29 @@ public:
 
   MultiType ();
   operator double() const;
-  /* operator vector < double > () const;
-  operator vector < long > () const; */
+  /* operator std::vector < double > () const;
+  operator std::vector < long > () const; */
   operator float() const;
   operator std::string() const;
   operator long() const;
-  operator unsigned() const;
   operator int() const;
+  operator unsigned() const;
   operator bool() const;
+
+  /// In an array, return the nth element,
+  /// In a non-array like object, return
+  /// this (for n=0) or throw (for n>0).
+  MultiType getElement ( int n ) const;
+  MultiType operator[] ( int n ) const;
+
+  /// Add the data to an array ( vector )
+  void addToVector ( const MultiType & );
+  void addToVector ( double data );
+  void addToVector ( long data );
 
   std::string asString() const;
   double asDouble() const;
+  float asFloat() const;
   long asLong() const;
   int asInt() const;
   bool asBool() const;
@@ -72,14 +84,15 @@ public:
               kInt32Vec, kInt64Vec, kNone };
 
   // returns the typename of a given type
-  std::string typeName ( Type ) const;
+  static std::string typeName ( Type );
 
   Type isType() const; //< returns the exact type
   bool hasValue() const;
   void toDefault();
   void defineAs( Type ); //< fix the type
 private:
-  void clear();
+  void clear(); //< clear all data, but dont touch type info 
+  void hasNothing(); //< set all has* to false.
   Type stringIs() const; //< get the most restrictive type for the string
   int goodPrecision() const; //< work out a good precision for floats and doubles
 private:
@@ -88,6 +101,7 @@ private:
    *  like any other type (const correctness ...)
    *  Note that conversions are "kept"
    */
+  mutable bool theTrimmable; // can it be trimmed?
   mutable double theDouble;
   mutable std::string theString;
   mutable long signed theInt;
@@ -123,6 +137,6 @@ private:
 };
 }
 
-std::ostream & operator << ( std::ostream & s, dataharvester::MultiType & rt );
+std::ostream & operator << ( std::ostream & s, dataharvester::MultiType & );
 
 #endif
