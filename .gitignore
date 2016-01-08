@@ -176,3 +176,7 @@ depcomp
 install-sh
 missing
 test-driver
+Makefile.in
+*/Makefile.in
+*/*/Makefile.in
+stamp-h1
