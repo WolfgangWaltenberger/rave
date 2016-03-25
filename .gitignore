@@ -177,6 +177,8 @@ install-sh
 missing
 test-driver
 Makefile.in
+java/JavaRave.jar
+java/.libs
 */Makefile.in
 */*/Makefile.in
 stamp-h1
