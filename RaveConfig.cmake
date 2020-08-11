@@ -9,7 +9,7 @@ SET( Rave_INCLUDE_DIRS Rave_INCLUDE_DIRS-NOTFOUND )
 
 FIND_PATH( Rave_INCLUDE_DIRS
     NAMES rave/VertexFactory.h
-    PATHS /home/walten/install
+    PATHS /usr/local
     PATH_SUFFIXES include
     NO_DEFAULT_PATH
 )
@@ -26,7 +26,7 @@ SET( Rave_LIB Rave_LIB-NOTFOUND )
 
 FIND_LIBRARY( Rave_LIB
     NAMES RaveBase RaveCore RaveVertex RaveFlavorTag RaveVertexKinematics
-    PATHS /home/walten/install
+    PATHS /usr/local
     PATH_SUFFIXES lib
     NO_DEFAULT_PATH
 )
