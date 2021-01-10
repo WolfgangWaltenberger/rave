@@ -1,4 +1,4 @@
-AM_CPPFLAGS = $(PLATFORMCPPFLAGS) -I$(top_srcdir)/src/ -I$(top_srcdir)/src/RaveBase/RaveInterface $(BOOST_CPPFLAGS) -I$(LHEPINCPATH) -I$(CLHEPINCPATH) -I$(top_srcdir)/src/ROOT/smatrix/ -I$(top_srcdir)/src/ROOT/mathcore/ -I$(top_srcdir)/src/ROOT/ -I$(top_srcdir)/src/ROOT/genvector/ -DRAVE
+AM_CPPFLAGS = $(PLATFORMCPPFLAGS) -I$(top_srcdir)/src/ -I$(top_srcdir)/src/RaveBase/RaveInterface $(BOOST_CPPFLAGS) -I$(CLHEPINCPATH) -I$(top_srcdir)/src/ROOT/smatrix/ -I$(top_srcdir)/src/ROOT/mathcore/ -I$(top_srcdir)/src/ROOT/ -I$(top_srcdir)/src/ROOT/genvector/ -DRAVE
 
 bin_PROGRAMS = rave_version
 
